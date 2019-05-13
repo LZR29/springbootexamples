@@ -1,10 +1,11 @@
 一、自定义属性
-当我们创建一个springboot项目的时候，系统默认会为我们在src/main/java/resources目录下创建一个application.properties。个人习惯，我会将application.properties改为application.yml文件，两种文件格式都支持。
+当我们创建一个springboot项目的时候，系统默认会为我们在src/main/java/resources目录下创建一个application.properties。
+个人习惯，我会将application.properties改为application.yml文件，两种文件格式都支持。
 在application.yml自定义一组属性：
  my:
     name: lzr
     age: 22
- 在你需要读取配置文件的值只需要加@Value(“${属性名}”)即可。
+在你需要读取配置文件的值只需要加@Value(“${属性名}”)即可。
  
 二、将配置文件的属性赋给实体类
  在application.yml自定义一组属性：
