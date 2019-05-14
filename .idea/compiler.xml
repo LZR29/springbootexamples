@@ -9,6 +9,7 @@
         <module name="config" />
         <module name="helloworld" />
         <module name="jdbc" />
+        <module name="jpa" />
         <module name="springbootexamples" />
       </profile>
     </annotationProcessing>
