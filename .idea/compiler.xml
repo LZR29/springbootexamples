@@ -10,6 +10,7 @@
         <module name="helloworld" />
         <module name="jdbc" />
         <module name="jpa" />
+        <module name="mybatis" />
         <module name="springbootexamples" />
       </profile>
     </annotationProcessing>
