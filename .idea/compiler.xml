@@ -12,6 +12,7 @@
         <module name="jpa" />
         <module name="mybatis" />
         <module name="springbootexamples" />
+        <module name="thymeleaf" />
         <module name="transaction" />
       </profile>
     </annotationProcessing>
