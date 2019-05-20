@@ -11,6 +11,7 @@
         <module name="jdbc" />
         <module name="jpa" />
         <module name="mybatis" />
+        <module name="redis" />
         <module name="springbootexamples" />
         <module name="thymeleaf" />
         <module name="transaction" />
