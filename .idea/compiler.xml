@@ -8,6 +8,7 @@
         <outputRelativeToContentRoot value="true" />
         <module name="config" />
         <module name="helloworld" />
+        <module name="ioc" />
         <module name="jdbc" />
         <module name="jpa" />
         <module name="mybatis" />
