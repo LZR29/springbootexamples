@@ -1,15 +1,15 @@
 package com.lzr.redis.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.redis.core.BoundHashOperations;
-import org.springframework.data.redis.core.RedisTemplate;
-import org.springframework.data.redis.core.StringRedisTemplate;
+import org.springframework.dao.DataAccessException;
+import org.springframework.data.redis.core.*;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import redis.clients.jedis.Jedis;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -56,4 +56,36 @@ public class RedisController {
         return result;
     }
 
+    /**
+     * 事务
+     * 对于注释的代码#####，因为我们存的是一个字符串所以对它进行加1是会出错的，这时redis的事务有个特点需要我们注意。
+     * 在redis中，事务队列的命令出错的话只是报出错误，不会影响后面的命令执行，所以在执行redis事务前要严格检查数据。
+     * @return
+     */
+    @RequestMapping("/multi")
+    public Map<String, Object> testMulti(){
+        redisTemplate.opsForValue().set("key1","value1");
+        List list = (List) redisTemplate.execute(new SessionCallback() {
+            @Override
+            public Object execute(RedisOperations redisOperations) throws DataAccessException {
+                //监控key1
+                redisOperations.watch("key1");
+                //开启事务，在exec执行之前，全部命令只是进入队列
+                redisOperations.multi();
+                redisTemplate.opsForValue().set("key2","value2");
+                //redisTemplate.opsForValue().increment("key1",1); //######
+                Object value2 = redisTemplate.opsForValue().get("key2");
+                System.out.println("命令在队列，所以value2的值为null【" + value2 + "】");
+                redisTemplate.opsForValue().set("key3","value3");
+                Object value3 = redisTemplate.opsForValue().get("key3");
+                System.out.println("命令在队列，所以value3的值为null【" + value3 + "】");
+                //执行exec命令，将先判断监控的key1是否被修改，如果是，不执行事务，否则执行事务
+                return redisOperations.exec();
+            }
+        });
+        System.out.println(list);
+        Map<String, Object> map = new HashMap<>();
+        map.put("success", true);
+        return map;
+    }
 }
