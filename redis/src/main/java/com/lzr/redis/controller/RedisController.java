@@ -72,18 +72,45 @@ public class RedisController {
                 redisOperations.watch("key1");
                 //开启事务，在exec执行之前，全部命令只是进入队列
                 redisOperations.multi();
-                redisTemplate.opsForValue().set("key2","value2");
-                //redisTemplate.opsForValue().increment("key1",1); //######
-                Object value2 = redisTemplate.opsForValue().get("key2");
+                redisOperations.opsForValue().set("key2","value2");
+                //redisOperations.opsForValue().increment("key1",1); //######
+                Object value2 = redisOperations.opsForValue().get("key2");
                 System.out.println("命令在队列，所以value2的值为null【" + value2 + "】");
-                redisTemplate.opsForValue().set("key3","value3");
-                Object value3 = redisTemplate.opsForValue().get("key3");
+                redisOperations.opsForValue().set("key3","value3");
+                Object value3 = redisOperations.opsForValue().get("key3");
                 System.out.println("命令在队列，所以value3的值为null【" + value3 + "】");
                 //执行exec命令，将先判断监控的key1是否被修改，如果是，不执行事务，否则执行事务
                 return redisOperations.exec();
             }
         });
         System.out.println(list);
+        Map<String, Object> map = new HashMap<>();
+        map.put("success", true);
+        return map;
+    }
+
+    /**
+     * 流水线
+     * @return
+     */
+    @RequestMapping("/pipeline")
+    public Map<String, Object> testPipeline(){
+        long start = System.currentTimeMillis();
+        List list = (List)redisTemplate.executePipelined(new SessionCallback() {
+            @Override
+            public Object execute(RedisOperations redisOperations) throws DataAccessException {
+                for (int i = 1; i <= 1000; i++) {
+                    redisOperations.opsForValue().set("pipeline_"+i, "value_"+i);
+                    String value = (String) redisOperations.opsForValue().get("pipeline_"+i);
+                    if(i == 1000){
+                        System.out.println("命令只是进入队列，所以值为空【"+ value +"】");
+                    }
+                }
+                return null;
+            }
+        });
+        long end = System.currentTimeMillis();
+        System.out.println("耗时为：" + (end - start) + "ms.");
         Map<String, Object> map = new HashMap<>();
         map.put("success", true);
         return map;
