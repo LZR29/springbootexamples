@@ -15,6 +15,7 @@
         <module name="mybatis" />
         <module name="redis" />
         <module name="springbootexamples" />
+        <module name="springmvc" />
         <module name="thymeleaf" />
         <module name="transaction" />
       </profile>
