@@ -16,6 +16,7 @@
         <module name="redis" />
         <module name="springbootexamples" />
         <module name="springmvc" />
+        <module name="springmvc_deep" />
         <module name="thymeleaf" />
         <module name="transaction" />
       </profile>
