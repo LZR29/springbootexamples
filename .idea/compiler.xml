@@ -14,6 +14,7 @@
         <module name="jpa" />
         <module name="mybatis" />
         <module name="redis" />
+        <module name="something" />
         <module name="springbootexamples" />
         <module name="springmvc" />
         <module name="springmvc_deep" />
@@ -21,5 +22,9 @@
         <module name="transaction" />
       </profile>
     </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="rest" target="1.8" />
+      <module name="springsecurity" target="1.8" />
+    </bytecodeTargetLevel>
   </component>
 </project>
