@@ -22,6 +22,7 @@
         <option value="$PROJECT_DIR$/springmvc_deep/pom.xml" />
         <option value="$PROJECT_DIR$/something/pom.xml" />
         <option value="$PROJECT_DIR$/schedule/pom.xml" />
+        <option value="$PROJECT_DIR$/websocket/pom.xml" />
       </list>
     </option>
   </component>

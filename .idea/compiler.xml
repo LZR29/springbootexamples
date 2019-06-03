@@ -21,6 +21,7 @@
         <module name="springmvc_deep" />
         <module name="thymeleaf" />
         <module name="transaction" />
+        <module name="websocket" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
