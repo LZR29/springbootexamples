@@ -12,6 +12,7 @@
         <module name="ioc" />
         <module name="jdbc" />
         <module name="jpa" />
+        <module name="mongodb" />
         <module name="mybatis" />
         <module name="redis" />
         <module name="schedule" />
